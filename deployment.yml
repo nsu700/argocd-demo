@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: nginx
+  template:
+    metadata:
+      labels:
+        deployment: nginx
+    spec:
+      containers:
+      - image: nginxinc/nginx-unprivileged:latest
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+                volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: index-html
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: index-html
+        name: index-html

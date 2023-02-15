@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  index.html: |
+    The app is running in cluster argocd
+kind: ConfigMap
+metadata:
+  name: index-html
